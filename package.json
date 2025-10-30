@@ -1,6 +1,6 @@
 {
   "name": "weekflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Professional week calculator for logistics and delivery systems (Monday to Sunday intervals)",
   "main": "index.js",
   "types": "index.d.ts",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/weekflow"
+    "url": "https://github.com/egorlem/weekflow"
   },
   "engines": {
     "node": ">=12.0.0"
