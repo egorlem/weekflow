@@ -2,15 +2,15 @@
 
 **Week Calculator for Logistics and Delivery Systems**
 
-A robust and reliable week calculation library designed specifically for logistics, delivery, and scheduling systems. WeekFlow provides consistent Monday-to-Sunday week calculations with professional-grade accuracy.
+WeekFlow - a simple library for calculating weeks in logistics and delivery systems. Handles Monday to Sunday weeks.
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install weekflow
 ```
 
-# Example
+## Example
 
 ```JavaScript
 getWeekByDate('2023-04-24'); // 17 (Monday)
