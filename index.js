@@ -5,27 +5,32 @@
  * @returns {number} Week number
  */
 const getWeekByDate = (selectedDate) => {
+    // Extract date parts and create pure UTC date (without time)
     const date = new Date(selectedDate);
-    date.setHours(0, 0, 0, 0);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    
+    // Create date at noon UTC to avoid timezone issues
+    const utcDate = new Date(Date.UTC(year, month, day, 12, 0, 0));
 
-    // Find Monday of this week
-    const day = date.getDay();
-    const monday = new Date(date);
-    monday.setDate(date.getDate() - (day === 0 ? 6 : day - 1));
-
-    // Calculate week number from year start
-    const startOfYear = new Date(monday.getFullYear(), 0, 1);
-    startOfYear.setHours(0, 0, 0, 0);
-
-    // First Monday of the year
+    // Find Monday of this week in UTC
+    const utcDay = utcDate.getUTCDay();
+    const monday = new Date(utcDate);
+    monday.setUTCDate(utcDate.getUTCDate() - (utcDay === 0 ? 6 : utcDay - 1));
+    
+    // Calculate week number from year start in UTC
+    const startOfYear = new Date(Date.UTC(monday.getUTCFullYear(), 0, 1, 12, 0, 0));
+    
+    // First Monday of the year in UTC
     const firstMonday = new Date(startOfYear);
-    if (firstMonday.getDay() !== 1) {
-        firstMonday.setDate(startOfYear.getDate() + (8 - startOfYear.getDay()) % 7);
+    if (firstMonday.getUTCDay() !== 1) {
+        firstMonday.setUTCDate(startOfYear.getUTCDate() + (8 - startOfYear.getUTCDay()) % 7);
     }
 
     // If Monday is before first Monday of year, it's last week of previous year
     if (monday < firstMonday) {
-        const prevYearEnd = new Date(monday.getFullYear() - 1, 11, 31);
+        const prevYearEnd = new Date(Date.UTC(monday.getUTCFullYear() - 1, 11, 31, 12, 0, 0));
         return getWeekByDate(prevYearEnd);
     }
 
@@ -42,18 +47,27 @@ const getWeekByDate = (selectedDate) => {
  * @returns {{start: Date, end: Date}} Week range (Monday to Sunday)
  */
 const getWeekRange = (selectedDate) => {
+    // Extract date parts and create pure UTC date
     const date = new Date(selectedDate);
-    date.setHours(0, 0, 0, 0);
-
-    // Find Monday of this week
-    const day = date.getDay();
-    const start = new Date(date);
-    start.setDate(date.getDate() - (day === 0 ? 6 : day - 1));
-
-    // Find Sunday of this week
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    
+    const utcDate = new Date(Date.UTC(year, month, day, 12, 0, 0));
+    
+    // Find Monday of this week in UTC
+    const utcDay = utcDate.getUTCDay();
+    const start = new Date(utcDate);
+    start.setUTCDate(utcDate.getUTCDate() - (utcDay === 0 ? 6 : utcDay - 1));
+    
+    // Find Sunday of this week in UTC
     const end = new Date(start);
-    end.setDate(start.getDate() + 6);
-
+    end.setUTCDate(start.getUTCDate() + 6);
+    
+    // Reset times to midnight for clean output
+    start.setUTCHours(0, 0, 0, 0);
+    end.setUTCHours(0, 0, 0, 0);
+    
     return { start, end };
 };
 
