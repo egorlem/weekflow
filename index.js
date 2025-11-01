@@ -15,7 +15,7 @@ const parseParts = (dateStr) => {
  * @param {Date|string} selectedDate - Input date
  * @returns {number} Week number
  */
-export const getWeekByDate = (selectedDate) => {
+const getWeekByDate = (selectedDate) => {
     try {
         // Extract pure date components ignoring timezones
         const dateStr = new Date(selectedDate).toISOString().split('T')[0];
@@ -59,7 +59,7 @@ export const getWeekByDate = (selectedDate) => {
  * @param {Date|string} selectedDate - Input date
  * @returns {{start: Date, end: Date}} Week range (Monday to Sunday)
  */
-export const getWeekRange = (selectedDate) => {
+const getWeekRange = (selectedDate) => {
     try {
         // Extract pure date components ignoring timezones
         const dateStr = new Date(selectedDate).toISOString().split('T')[0];
@@ -93,7 +93,7 @@ export const getWeekRange = (selectedDate) => {
  * @param {Date|string} selectedDate - Input date
  * @returns {{weekNumber: number, start: Date, end: Date}} Week info
  */
-export const getWeekInfo = (selectedDate) => {
+const getWeekInfo = (selectedDate) => {
     const weekNumber = getWeekByDate(selectedDate);
     const { start, end } = getWeekRange(selectedDate);
 
@@ -104,8 +104,8 @@ export const getWeekInfo = (selectedDate) => {
     };
 };
 
-// module.exports = {
-//     getWeekByDate,
-//     getWeekRange,
-//     getWeekInfo
-// };
+module.exports = {
+    getWeekByDate,
+    getWeekRange,
+    getWeekInfo
+};
