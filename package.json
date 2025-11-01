@@ -1,11 +1,15 @@
 {
   "name": "weekflow",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Professional week calculator for logistics and delivery systems (Monday to Sunday intervals)",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
     "build": "echo 'No build required'"
+  },
+  "browser": "index.js",
+  "exports": {
+    ".": "./index.js"
   },
   "keywords": [
     "week",
